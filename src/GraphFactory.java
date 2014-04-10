@@ -52,9 +52,9 @@ public class GraphFactory
   
                 Node to = ret.get(randomTo);
                 Node from = ret.get(i);
-                from.m_edges.add(new Edge(to, from, distanceFunctor.determine(from, to)));
+                from.m_edges.add(new Edge(from, to, distanceFunctor.determine(from, to)));
                 if(dType == Direction.BI)
-                    to.m_edges.add(new Edge(from, to, distanceFunctor.determine(from, to)));         
+                    to.m_edges.add(new Edge(to, from, distanceFunctor.determine(from, to)));         
             }
            
         }  

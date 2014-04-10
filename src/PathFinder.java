@@ -61,8 +61,9 @@ public class PathFinder
             
             for(Edge edge : toNode.m_edges)
             {
-                GraphElement tempGraphElement = new GraphElement(edge, currentElement.m_cost + edge.m_weight, 
-                        currentElement.m_cost + heuristic.determine(edge.m_from, end));
+                double cost = currentElement.m_cost + edge.m_weight;
+                GraphElement tempGraphElement = new GraphElement(edge, cost + heuristic.determine(edge.m_from, end),
+                        cost);
                 if(traveled.contains(tempGraphElement) || untraveled.contains(tempGraphElement))
                     continue;
                 

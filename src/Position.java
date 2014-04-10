@@ -23,8 +23,8 @@ public class Position implements Comparable<Position>
     {
         float xRange = bottomRight.x - topLeft.x;
         float yRange = topLeft.y - bottomRight.y;
-        return new Position(RGEN.nextFloat() * xRange - topLeft.x, 
-                RGEN.nextFloat() * yRange - bottomRight.y);        
+        return new Position((RGEN.nextFloat() * xRange) + topLeft.x, 
+                (RGEN.nextFloat() * yRange) + bottomRight.y);        
     }
     
     @Override
