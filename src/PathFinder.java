@@ -9,6 +9,7 @@ public class PathFinder
 {
     // Fallback
     private static final int MAX_ITERATIONS = 100000;    
+    private static int best = 0;
     
     public static ArrayList<Edge> pathfindingByDijkstra(HashSet<Node> graph, Node start, Node end)
     {
@@ -28,30 +29,39 @@ public class PathFinder
         if(!graph.contains(start) || !graph.contains(end))
             return ret;
         
-        TreeSet<GraphElement> traveled = new TreeSet<GraphElement>();
-        TreeSet<GraphElement> untraveled = new TreeSet<GraphElement>();
+        TreeSet<GraphElement> traveledSorted = new TreeSet<GraphElement>();
+        HashSet<Edge> traveledSet = new HashSet<Edge>();
+        TreeSet<GraphElement> untraveledSortedSet = new TreeSet<GraphElement>();
+        HashSet<Edge> untraveledSet = new HashSet<Edge>();
         HashMap<Node, GraphElement> internalGraph = new HashMap<Node, GraphElement>();
         
         // Initial setup
         GraphElement startElement = new GraphElement(new Edge(new Node(), start), 0, 0);
         internalGraph.put(start, startElement);
         for(Edge edge : start.m_edges)
-            untraveled.add(new GraphElement(edge, edge.m_weight, heuristic.determine(edge.m_from, edge.m_to)));
+        {
+            if(untraveledSet.add(edge))
+                untraveledSortedSet.add(new GraphElement(edge, edge.m_weight + heuristic.determine(edge.m_from, end), edge.m_weight));
+        }
         
         boolean foundPath = false;
-        for(int i = 0; i < MAX_ITERATIONS && !untraveled.isEmpty() && !foundPath; ++i)
+        for(int i = 0; i < MAX_ITERATIONS && !untraveledSortedSet.isEmpty() && !foundPath; ++i)
         {
-            GraphElement currentElement = untraveled.first();
-            Node toNode = currentElement.m_edge.m_to;
+            GraphElement currentElement = untraveledSortedSet.first();
+            Edge definingEdge = currentElement.m_edge;
+            Node toNode = definingEdge.m_to;
             
             if(!internalGraph.containsKey(toNode) 
                     || internalGraph.get(toNode).m_cost > currentElement.m_cost) 
             {
                 internalGraph.put(toNode, currentElement);
             }
+
+            if(traveledSet.add(definingEdge))
+                traveledSorted.add(currentElement);
             
-            traveled.add(currentElement);
-            untraveled.remove(currentElement);
+            untraveledSet.remove(definingEdge);
+            untraveledSortedSet.remove(currentElement);
  
             if(toNode == end)
             {
@@ -64,12 +74,26 @@ public class PathFinder
                 double cost = currentElement.m_cost + edge.m_weight;
                 GraphElement tempGraphElement = new GraphElement(edge, cost + heuristic.determine(edge.m_from, end),
                         cost);
-                if(traveled.contains(tempGraphElement) || untraveled.contains(tempGraphElement))
+                if(traveledSet.contains(edge) || untraveledSet.contains(edge))
                     continue;
                 
-                untraveled.add(tempGraphElement);                
+                untraveledSet.add(edge);        
+                untraveledSortedSet.add(tempGraphElement);
             }
         }
+        
+        
+        if(untraveledSortedSet.size() > best)
+        {   
+            best = untraveledSortedSet.size();
+            System.out.println("Best updated to: " + best);
+        }
+        else if(untraveledSortedSet.size() == best)
+        {
+            System.out.println("Best is the same size: " + best);
+        }
+        else
+            System.out.println("Outperformed best: " + untraveledSortedSet.size());
 
         if(foundPath)
             return unravelPath(internalGraph, start, end);
@@ -83,6 +107,7 @@ public class PathFinder
         ArrayList<Edge> ret = new ArrayList<Edge>();
         if(!graph.containsKey(start) || !graph.containsKey(end))
             return ret;
+
         
         Node currentNode = end;
         for(int i = 0; i < graph.size() && currentNode != start; ++i)
@@ -94,7 +119,7 @@ public class PathFinder
             ret.add(tempGraphElement.m_edge);
             Node oldNode = currentNode;
             currentNode = tempGraphElement.m_edge.m_from;
-            graph.remove(oldNode);
+            //graph.remove(oldNode);
         }
 
         Collections.reverse(ret);

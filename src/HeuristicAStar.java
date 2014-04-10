@@ -5,7 +5,12 @@ public class HeuristicAStar implements HeuristicFunction
     @Override
     public double determine(Node from, Node to)
     {
-        return Math.sqrt(Math.pow(to.m_pos.y - from.m_pos.y, 2) + Math.pow(to.m_pos.x - from.m_pos.x, 2));
+        assert(from != to);
+        assert(from.m_pos.y != to.m_pos.y);
+        assert(from.m_pos.x != to.m_pos.x);
+        
+        return Math.sqrt((((to.m_pos.y - from.m_pos.y) * (to.m_pos.y - from.m_pos.y)) 
+                + ((to.m_pos.x - from.m_pos.x) * (to.m_pos.x - from.m_pos.x))));
     }
 
 }

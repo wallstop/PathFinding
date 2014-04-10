@@ -37,7 +37,9 @@ public class GraphElement implements Comparable<GraphElement>
     @Override
     public int compareTo(GraphElement other)
     {
-        return m_edge.compareTo(other.m_edge);
+        if(m_heuristicCost == other.m_heuristicCost)
+            return 0;
+        return (m_heuristicCost - other.m_heuristicCost > 0) ? 1 : -1;
     }
     
     @Override

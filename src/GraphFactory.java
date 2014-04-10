@@ -7,8 +7,8 @@ public class GraphFactory
 {
     private static Random rGen = new Random();
     
-    private static final Position DEFAULT_TOP_LEFT = new Position(-1000, 1000);
-    private static final Position DEFAULT_BOTTOM_RIGHT = new Position(1000, -1000);
+    private static final Position DEFAULT_TOP_LEFT = new Position(-10000, 10000);
+    private static final Position DEFAULT_BOTTOM_RIGHT = new Position(10000, -10000);
     
     private enum Direction
     {
@@ -37,7 +37,7 @@ public class GraphFactory
         }
         for(int i = 0; i < numNodes; ++i)
         {
-            int numEdges = rGen.nextInt((int)Math.log1p(numNodes)) + 2;
+            int numEdges = (int)(rGen.nextFloat() * (float)(numNodes - 1));
             HeuristicFunction distanceFunctor = new HeuristicAStar();
             HashSet<Integer> edgesTo = new HashSet<Integer>();
             for(int j = 0; j < numEdges; ++j)
