@@ -2,6 +2,7 @@
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 
 public class Main
@@ -13,8 +14,16 @@ public class Main
         
         Iterator<Node> itr = graph.iterator();
         
+        Random rGen = new Random();
+        
+        int nodeToEnd = rGen.nextInt(graph.size()) + 1;
+        
         Node start = itr.hasNext() ? itr.next() : new Node();
-        Node end = itr.hasNext() ? itr.next() : new Node();
+        Node end = new Node();
+        for(int i = 0; i < nodeToEnd && itr.hasNext(); ++i)
+            end = itr.next();
+        
+        
         
         ArrayList<Edge> dijkstraPath = PathFinder.pathfindingByDijkstra(graph, start, end);
         

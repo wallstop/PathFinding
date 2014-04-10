@@ -9,7 +9,6 @@ public class PathFinder
 {
     // Fallback
     private static final int MAX_ITERATIONS = 100000;    
-    private static int best = 0;
     
     public static ArrayList<Edge> pathfindingByDijkstra(HashSet<Node> graph, Node start, Node end)
     {
@@ -81,19 +80,6 @@ public class PathFinder
                 untraveledSortedSet.add(tempGraphElement);
             }
         }
-        
-        
-        if(untraveledSortedSet.size() > best)
-        {   
-            best = untraveledSortedSet.size();
-            System.out.println("Best updated to: " + best);
-        }
-        else if(untraveledSortedSet.size() == best)
-        {
-            System.out.println("Best is the same size: " + best);
-        }
-        else
-            System.out.println("Outperformed best: " + untraveledSortedSet.size());
 
         if(foundPath)
             return unravelPath(internalGraph, start, end);
