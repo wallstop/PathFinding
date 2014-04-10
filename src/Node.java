@@ -18,7 +18,7 @@ public class Node implements Comparable<Node>
 	public Node(UniqueID id)
 	{
 	    m_id = id;
-	    m_pos = Position.getRandomPosition();
+	    m_pos = new Position();
 		m_edges = new ArrayList<Edge>();
 	}
 	
@@ -26,7 +26,7 @@ public class Node implements Comparable<Node>
 	public Node(ArrayList<Edge> edges)
 	{
         m_id = new UniqueID();
-	    m_pos = Position.getRandomPosition();
+	    m_pos = new Position();
 	    m_edges = new ArrayList<Edge>(edges);
 	}
 	

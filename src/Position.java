@@ -6,10 +6,7 @@ public class Position implements Comparable<Position>
     public float x;
     public float y;
     private static final Random RGEN = new Random();
-    private static final int SPACE_RANGE = 20000;
-    private static final int SPACE_OFFSET = -10000;
-    
-    
+   
     public Position()
     {
         x = 0.f;
@@ -22,10 +19,12 @@ public class Position implements Comparable<Position>
         y = _y;
     }
     
-    public static Position getRandomPosition()
+    public static Position getRandomPosition(Position topLeft, Position bottomRight)
     {
-        return new Position(RGEN.nextFloat() * SPACE_RANGE - SPACE_OFFSET, 
-                RGEN.nextFloat() * SPACE_RANGE - SPACE_OFFSET);        
+        float xRange = bottomRight.x - topLeft.x;
+        float yRange = topLeft.y - bottomRight.y;
+        return new Position(RGEN.nextFloat() * xRange - topLeft.x, 
+                RGEN.nextFloat() * yRange - bottomRight.y);        
     }
     
     @Override

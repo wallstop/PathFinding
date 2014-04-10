@@ -9,7 +9,7 @@ public class Main
     
     public static void main(String [] args)
     {
-        HashSet<Node> graph = GraphFactory.generateBiDirectionalGraph(50);
+        HashSet<Node> graph = GraphFactory.generateBiDirectionalGraph(1000);
         
         Iterator<Node> itr = graph.iterator();
         

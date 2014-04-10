@@ -5,9 +5,10 @@ import java.util.HashSet;
 
 public class GraphFactory
 {
-    static Random rGen = new Random();
-    static final Position DEFAULT_TOP_LEFT = new Position(0, 100);
-    static final Position DEFAULT_BOTTOM_RIGHT = new Position(100, 0);
+    private static Random rGen = new Random();
+    
+    private static final Position DEFAULT_TOP_LEFT = new Position(-1000, 1000);
+    private static final Position DEFAULT_BOTTOM_RIGHT = new Position(1000, -1000);
     
     private enum Direction
     {
@@ -21,19 +22,14 @@ public class GraphFactory
         assert(numNodes >= 0);
         assert(dType != Direction.UNKNOWN);
         ArrayList<Node> ret = new ArrayList<Node>();
-        HashSet<Position> usedPositions = new HashSet<Position>();
-        
-        float xRange = bottomRight.x - topLeft.x;
-        float yRange = topLeft.y - bottomRight.y;
-        
+        HashSet<Position> usedPositions = new HashSet<Position>();        
         
         for(int i = 0; i < numNodes; ++i)
         {
-            Position currentPosition = new Position();
+            Position currentPosition;
             do
             {
-                currentPosition.x = rGen.nextFloat() * xRange - topLeft.x;
-                currentPosition.y = rGen.nextFloat() * yRange - bottomRight.y;
+                currentPosition = Position.getRandomPosition(topLeft, bottomRight);
             } 
             while(!usedPositions.add(currentPosition));            
             
@@ -54,9 +50,11 @@ public class GraphFactory
                 while(randomTo == i || edgesTo.contains(randomTo)); 
                 edgesTo.add(randomTo);
   
-                ret.get(i).m_edges.add(new Edge(ret.get(i), ret.get(randomTo), distanceFunctor.determine(ret.get(i), ret.get(randomTo))));
+                Node to = ret.get(randomTo);
+                Node from = ret.get(i);
+                from.m_edges.add(new Edge(to, from, distanceFunctor.determine(from, to)));
                 if(dType == Direction.BI)
-                    ret.get(randomTo).m_edges.add(new Edge(ret.get(randomTo), ret.get(i), distanceFunctor.determine(ret.get(randomTo), ret.get(i))));         
+                    to.m_edges.add(new Edge(from, to, distanceFunctor.determine(from, to)));         
             }
            
         }  
