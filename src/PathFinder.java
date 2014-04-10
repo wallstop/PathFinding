@@ -45,7 +45,7 @@ public class PathFinder
             Node toNode = currentElement.m_edge.m_to;
             
             if(!internalGraph.containsKey(toNode) 
-                    || internalGraph.get(toNode).m_edge.m_weight >= currentElement.m_edge.m_weight) 
+                    || internalGraph.get(toNode).m_cost > currentElement.m_cost) 
             {
                 internalGraph.put(toNode, currentElement);
             }

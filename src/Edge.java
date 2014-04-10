@@ -16,7 +16,7 @@ public class Edge implements Comparable<Edge>
         m_weight = 0.;
     }
     
-    public Edge(Node to, Node from)
+    public Edge(Node from, Node to)
     {
         m_id = new UniqueID();
         m_to = to;
@@ -24,7 +24,7 @@ public class Edge implements Comparable<Edge>
         m_weight = 0.;
     }
     
-    public Edge(Node to, Node from, double weight)
+    public Edge(Node from, Node to, double weight)
     {   
         m_id = new UniqueID();
         m_to = to;

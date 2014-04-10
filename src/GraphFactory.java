@@ -32,8 +32,8 @@ public class GraphFactory
             Position currentPosition = new Position();
             do
             {
-                currentPosition.x = rGen.nextFloat() * xRange;
-                currentPosition.y = rGen.nextFloat() * yRange;
+                currentPosition.x = rGen.nextFloat() * xRange - topLeft.x;
+                currentPosition.y = rGen.nextFloat() * yRange - bottomRight.y;
             } 
             while(!usedPositions.add(currentPosition));            
             
@@ -56,8 +56,9 @@ public class GraphFactory
   
                 ret.get(i).m_edges.add(new Edge(ret.get(i), ret.get(randomTo), distanceFunctor.determine(ret.get(i), ret.get(randomTo))));
                 if(dType == Direction.BI)
-                    ret.get(i).m_edges.add(new Edge(ret.get(randomTo), ret.get(i), distanceFunctor.determine(ret.get(randomTo), ret.get(i))));         
+                    ret.get(randomTo).m_edges.add(new Edge(ret.get(randomTo), ret.get(i), distanceFunctor.determine(ret.get(randomTo), ret.get(i))));         
             }
+           
         }  
         
         assert(ret.size() >= 0);
