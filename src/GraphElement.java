@@ -3,8 +3,8 @@ public class GraphElement implements Comparable<GraphElement>
 {
     public Edge m_edge;
     
-    public double m_cost;   // AStar's f cost
-    public double m_heuristicCost;  // AStar's g cost
+    public double m_cost;   // AStar's g cost
+    public double m_heuristicCost;  // AStar's f cost
     
     public GraphElement()
     {
