@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class PathFinder
 {
     // Fallback
-    private static final int MAX_ITERATIONS = 100000;    
+    private static final int MAX_ITERATIONS = 1000000;    
     
     public static ArrayList<Edge> pathfindingByDijkstra(HashSet<Node> graph, Node start, Node end)
     {

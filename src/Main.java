@@ -10,7 +10,7 @@ public class Main
     
     public static void main(String [] args)
     {
-        HashSet<Node> graph = GraphFactory.generateBiDirectionalGraph(1000);        
+        HashSet<Node> graph = GraphFactory.generateBiDirectionalGraph(100000);        
         Iterator<Node> itr = graph.iterator();        
         Random rGen = new Random();
         
@@ -24,8 +24,8 @@ public class Main
         while(nodeToEnd == nodeToStart);
         int max = nodeToEnd > nodeToStart ? nodeToEnd : nodeToStart;
         
-        Node start = new Node();
-        Node end = new Node();
+        Node start = Node.getInvalidNode();
+        Node end = Node.getInvalidNode();
         for(int i = 0; i <= max && itr.hasNext(); ++i)
         {
             Node tempNode = itr.next();
@@ -38,23 +38,21 @@ public class Main
         ArrayList<Edge> dijkstraPath = PathFinder.pathfindingByDijkstra(graph, start, end);        
         ArrayList<Edge> astarPath = PathFinder.pathfindingByAStar(graph, start, end);
         
-        System.out.print("Dijkstra path : ");
+        printGraph(dijkstraPath, "Dijkstra");
+        printGraph(astarPath, "AStar");
+    }
+    
+    private static void printGraph(ArrayList<Edge> path, String name)
+    {
+        System.out.print(name + " path :\t");  
         double totalDistance = 0.;
-        for(Edge edge : dijkstraPath)
+        for(Edge edge : path)
         {
             assert(edge.m_weight >= 0.);
             totalDistance += edge.m_weight;
-            System.out.print(edge.m_from.m_id.getID() + "-" +  edge.m_to.m_id.getID() + " ");
-        }
-        System.out.println("\nTotal Distance: " + totalDistance);
-        totalDistance = 0.;
-        System.out.print("AStar path : ");
-        for(Edge edge : astarPath)
-        {
-            assert(edge.m_weight >= 0.);
-            totalDistance += edge.m_weight;
-            System.out.print(edge.m_from.m_id.getID() + "-" + edge.m_to.m_id.getID() + " ");            
-        }
-        System.out.println("\nTotal Distance: " + totalDistance);
+            System.out.print(edge.m_from.m_id.getID() + "-" +  edge.m_to.m_id.getID() + "\t");
+        }        
+        System.out.println("\nTotal distance: " + totalDistance);
+        
     }
 }

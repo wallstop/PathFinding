@@ -7,6 +7,7 @@ public class Node implements Comparable<Node>
 	public UniqueID m_id;
 	public Position m_pos;
 	public ArrayList<Edge> m_edges;
+	private static final Node BAD_NODE = new Node();
 	
 	public Node()
 	{
@@ -47,6 +48,11 @@ public class Node implements Comparable<Node>
 	public boolean isValid()
 	{
 	    return m_id.isValid();
+	}
+	
+	public static Node getInvalidNode()
+	{
+	    return BAD_NODE;
 	}
 	
 	@Override

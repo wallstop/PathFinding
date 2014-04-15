@@ -6,6 +6,7 @@ public class UniqueID implements Comparable<UniqueID>
     
     private static int idGen = 1;
     private static final int INVALID_ID = Integer.MIN_VALUE;
+    private static final UniqueID GLOBAL_BAD_ID = new UniqueID(INVALID_ID);
     
     public UniqueID()
     {
@@ -52,7 +53,7 @@ public class UniqueID implements Comparable<UniqueID>
     
     static UniqueID getInvalid()
     {
-        return new UniqueID(INVALID_ID);
+        return GLOBAL_BAD_ID;
     }
     
     public boolean isValid()
