@@ -36,5 +36,11 @@ public class Position implements Comparable<Position>
         // Totally arbitrary
         return (int)(x - other.x + y - other.y);                
     }
+    
+    public static double geometricDistance(Position from, Position to)
+    {
+        return Math.sqrt((((to.y - from.y) * (to.y - from.y)) 
+                + ((to.x - from.x) * (to.x - from.x))));        
+    }
 
 }

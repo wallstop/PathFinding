@@ -44,17 +44,15 @@ public class PathFinder
         }
         
         boolean foundPath = false;
+        // MAX_ITERATIONS safely guards an arbitrary upper bound
         for(int i = 0; i < MAX_ITERATIONS && !untraveledSortedSet.isEmpty() && !foundPath; ++i)
         {
             GraphElement currentElement = untraveledSortedSet.first();
             Edge definingEdge = currentElement.m_edge;
             Node toNode = definingEdge.m_to;
             
-            if(!internalGraph.containsKey(toNode) 
-                    || internalGraph.get(toNode).m_cost > currentElement.m_cost) 
-            {
+            if(!internalGraph.containsKey(toNode) || internalGraph.get(toNode).m_cost > currentElement.m_cost) 
                 internalGraph.put(toNode, currentElement);
-            }
 
             if(traveledSet.add(definingEdge))
                 traveledSorted.add(currentElement);
