@@ -38,6 +38,7 @@ public class GraphFactory
         for(int i = 0; i < numNodes; ++i)
         {
             int numEdges = (int)(rGen.nextFloat() * Math.log1p(numNodes)) + 2;
+            numEdges = numEdges >= numNodes ? numNodes - 1 : numEdges; // Sanity check our random
             HeuristicFunction distanceFunctor = new HeuristicAStar();
             HashSet<Integer> edgesTo = new HashSet<Integer>();
             for(int j = 0; j < numEdges; ++j)

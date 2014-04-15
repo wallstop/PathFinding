@@ -101,7 +101,7 @@ public class PathFinder
             assert(tempGraphElement.m_edge.m_id.isValid());
             assert(tempGraphElement.m_edge.m_to == currentNode);            
             ret.add(tempGraphElement.m_edge);
-            Node oldNode = currentNode;
+            //Node oldNode = currentNode;
             currentNode = tempGraphElement.m_edge.m_from;
             //graph.remove(oldNode);
         }
