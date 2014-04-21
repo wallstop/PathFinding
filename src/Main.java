@@ -1,39 +1,29 @@
 
-import java.util.HashSet;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
-
 
 public class Main
 {
     
     public static void main(String [] args)
     {
-        HashSet<Node> graph = GraphFactory.generateBiDirectionalGraph(100000);        
-        Iterator<Node> itr = graph.iterator();        
+        Graph graph = GraphFactory.generateBiDirectionalGraph(100000);             
         Random rGen = new Random();
         
-        int nodeToEnd = 0;
-        int nodeToStart = 0;
+        int startPos = 0;
+        int endPos = 0;
         do
         {
-            nodeToEnd = rGen.nextInt(graph.size());
-            nodeToStart = rGen.nextInt(graph.size());
+            startPos = rGen.nextInt(graph.size());
+            endPos = rGen.nextInt(graph.size());
         }
-        while(nodeToEnd == nodeToStart);
-        int max = nodeToEnd > nodeToStart ? nodeToEnd : nodeToStart;
+        while(startPos == endPos);
+
+        Node start = graph.nodeAt(startPos);
+        Node end = graph.nodeAt(endPos);
         
-        Node start = Node.getInvalidNode();
-        Node end = Node.getInvalidNode();
-        for(int i = 0; i <= max && itr.hasNext(); ++i)
-        {
-            Node tempNode = itr.next();
-            if(i == nodeToStart)
-                start = tempNode;
-            else if(i == nodeToEnd)
-                end = tempNode;
-        }
+        if(!graph.pathExists(start,  end))
+            return;
         
         ArrayList<Edge> dijkstraPath = PathFinder.pathfindingByDijkstra(graph, start, end);        
         ArrayList<Edge> astarPath = PathFinder.pathfindingByAStar(graph, start, end);

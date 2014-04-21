@@ -17,7 +17,7 @@ public class GraphFactory
         BI        
     }
     
-    private static HashSet<Node> generateGraph(int numNodes, Position topLeft, Position bottomRight, Direction dType)
+    private static Graph generateGraph(int numNodes, Position topLeft, Position bottomRight, Direction dType)
     {
         assert(numNodes >= 0);
         assert(dType != Direction.UNKNOWN);
@@ -62,29 +62,26 @@ public class GraphFactory
         
         assert(ret.size() >= 0);
         
-        HashSet<Node> retSet = new HashSet<Node>(ret);
-        assert(retSet.size() == numNodes);
-        
-        return retSet;
+        return new Graph(ret);
 
     }
     
-    public static HashSet<Node> generateUniDirectionalGraph(int numNodes)
+    public static Graph generateUniDirectionalGraph(int numNodes)
     {
         return generateGraph(numNodes, DEFAULT_TOP_LEFT, DEFAULT_BOTTOM_RIGHT,  Direction.UNI);
     }
     
-    public static HashSet<Node> generateUniDirectionalGraph(int numNodes, Position topLeft, Position bottomRight)
+    public static Graph generateUniDirectionalGraph(int numNodes, Position topLeft, Position bottomRight)
     {
         return generateGraph(numNodes, topLeft, bottomRight, Direction.UNI);
     }
     
-    public static HashSet<Node> generateBiDirectionalGraph(int numNodes)
+    public static Graph generateBiDirectionalGraph(int numNodes)
     {
         return generateGraph(numNodes, DEFAULT_TOP_LEFT, DEFAULT_BOTTOM_RIGHT, Direction.BI);
     }
     
-    public static HashSet<Node> generateBiDirectionalGraph(int numNodes, Position topLeft, Position bottomRight)
+    public static Graph generateBiDirectionalGraph(int numNodes, Position topLeft, Position bottomRight)
     {
         return generateGraph(numNodes, topLeft, bottomRight, Direction.BI);
     }

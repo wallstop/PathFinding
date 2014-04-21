@@ -10,17 +10,17 @@ public class PathFinder
     // Fallback
     private static final int MAX_ITERATIONS = 1000000;    
     
-    public static ArrayList<Edge> pathfindingByDijkstra(HashSet<Node> graph, Node start, Node end)
+    public static ArrayList<Edge> pathfindingByDijkstra(Graph graph, Node start, Node end)
     {
         return internalDijkstraOrAStar(graph, start, end, new HeuristicDijkstra());
     }
     
-    public static ArrayList<Edge> pathfindingByAStar(HashSet<Node> graph, Node start, Node end)
+    public static ArrayList<Edge> pathfindingByAStar(Graph graph, Node start, Node end)
     {
         return internalDijkstraOrAStar(graph, start, end, new HeuristicAStar());
     }
     
-    private static ArrayList<Edge> internalDijkstraOrAStar(HashSet<Node> graph, Node start, Node end, 
+    private static ArrayList<Edge> internalDijkstraOrAStar(Graph graph, Node start, Node end, 
             HeuristicFunction heuristic)
     {
         ArrayList<Edge> ret = new ArrayList<Edge>();
