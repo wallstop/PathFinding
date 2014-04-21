@@ -19,16 +19,14 @@ public class Graph
     
     public void addNodes(Collection<Node> graph)
     {
-        if(m_graph == null)
-            m_graph = new HashSet<Node>();
-        
+        // m_graph should never be null here
         m_graph.addAll(graph);        
     }  
     
     public Node nodeAt(int index)
     {
         Node ret = Node.getInvalidNode();
-        if(m_graph == null || index >= m_graph.size())
+        if(index >= m_graph.size() || m_graph == null)
             return ret;
         
         Iterator<Node> itr = m_graph.iterator();
